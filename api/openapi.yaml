@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: Servicio de autorregulación de la temperatura en estancias
+  description: API que contiene los mircoservicios para la gestión de la regulación
+    automática de la temperatura en las estancias utilizando controladores en la sala,
+    dispositivos térmicos y el servidor
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: jadurang@alumnos.unex.es
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+tags:
+- name: Servidor
+  description: Operaciones ofrecidas por el servidor
+- name: DispositivoRegulacion
+  description: Operaciones ofrecidas por el dispositivo de regulación
+paths:
+  /changeTemp:
+    get:
+      tags:
+      - Servidor
+      summary: Devuelve si la temperatura debe ser cambiada o no
+      description: Al preguntar al servidor si hay que cambiar la temperatura de una
+        sala, este devolverá si hay que cambiarla o no
+      operationId: changeTempGET
+      responses:
+        "200":
+          description: Devuelve la respuesta de si la temperatura debe ser cambiada
+        "400":
+          description: Error de conexión entre el controlador y el servidor
+      x-swagger-router-controller: Servidor
+  /getNewTemp:
+    get:
+      tags:
+      - Servidor
+      summary: Devuelve la temperatura ideal a la que debe cambiar la sala en función
+        de un usuario.
+      description: El servidor devuelve la temperatura ideal que debe tener la sala,
+        previamente calculada con un algoritmo, para que sea cambiada y cumpla con
+        la satisfacción del único usuario de la sala.
+      operationId: getNewTempGET
+      responses:
+        "200":
+          description: Devuelve la temperatura ideal de la sala
+        "400":
+          description: Error al obtener la temperatura
+      x-swagger-router-controller: Servidor
+  /getNewTempByGroup:
+    get:
+      tags:
+      - Servidor
+      summary: Devuelve la temperatura ideal a la que debe cambiar la sala en función
+        de varios usuarios.
+      description: El servidor devuelve la temperatura ideal que debe tener la sala,
+        previamente calculada con un algoritmo, para que sea cambiada y cumpla con
+        la satisfacción de todos los usuarios que se encuentran la sala.
+      operationId: getNewTempByGroupGET
+      responses:
+        "200":
+          description: Devuelve la temperatura ideal de la sala
+        "400":
+          description: Error al obtener la temperatura
+      x-swagger-router-controller: Servidor
+  /usernumber:
+    get:
+      tags:
+      - DispositivoRegulacion
+      summary: Devuelve el número de personas en una sala
+      description: Devuelve el número actual de personas que se encuentran en una
+        sala conociendo de antemano el número de pulseras que se han conectado al
+        controlador
+      operationId: usernumberGET
+      responses:
+        "200":
+          description: Devuelve el número de personas
+        "400":
+          description: Error al obtener el número de personas
+      x-swagger-router-controller: DispositivoRegulacion
+  /deviceStatus:
+    get:
+      tags:
+      - DispositivoRegulacion
+      summary: Devuelve el estado del dispositivo
+      description: Devuelve el estado actual del dispositivo térmico para saber si
+        hay que encenderlo o apagarlo según sea la circunstancia
+      operationId: deviceStatusGET
+      responses:
+        "200":
+          description: Devuelve el estado del dispositivo
+        "400":
+          description: Error de conexión con el dispositivo térmico
+      x-swagger-router-controller: DispositivoRegulacion
+  /turnOnDevice:
+    post:
+      tags:
+      - DispositivoRegulacion
+      summary: Encender un dispositivo térmico de una sala
+      description: Envía una señal para encender el dispositivo de una sala debido
+        a que hay al menos una persona en esa sala
+      operationId: turnOnDevicePOST
+      responses:
+        "201":
+          description: Señal enviada
+        "400":
+          description: Error al mandar la señal
+        "409":
+          description: El dispositivo ya tiene este valor
+      x-swagger-router-controller: DispositivoRegulacion
+  /turnOffDevice:
+    post:
+      tags:
+      - DispositivoRegulacion
+      summary: Apagar un dispositivo térmico de una sala
+      description: Envía una señal para apagar el dispositivo de una sala debido a
+        que no hay ni una persona en esa sala
+      operationId: turnOffDevicePOST
+      requestBody:
+        description: Parámetros a enviar
+        content:
+          application/json:
+            schema:
+              type: boolean
+              example: false
+      responses:
+        "201":
+          description: Señal enviada
+        "400":
+          description: Error al mandar la señal
+        "409":
+          description: El dispositivo ya tiene este valor
+      x-swagger-router-controller: DispositivoRegulacion
+  /getTemp:
+    get:
+      tags:
+      - DispositivoRegulacion
+      summary: Devuelve la temperatura actual de una sala
+      description: Devuelve la temperatura actual de una sala para conocer si es la
+        temperatura adecuada para los usuarios de la misma sala.
+      operationId: getTempGET
+      responses:
+        "200":
+          description: Devuelve la temperatura de la sala
+        "400":
+          description: Error al obtener la tmperatura de la sala
+      x-swagger-router-controller: DispositivoRegulacion
+  /modifyTemp:
+    put:
+      tags:
+      - DispositivoRegulacion
+      summary: Modificar la temperatura de la sala
+      description: Modificar la temperatura de una sala con la nueva temperatura dada
+        por el servidor, para ello se envía una señal para cambiar la temperatura
+      operationId: modifyTempPUT
+      responses:
+        "201":
+          description: Temperatura cambiada
+        "400":
+          description: Valor incorrecto
+        "409":
+          description: El dispositivo ya tiene este valor
+      x-swagger-router-controller: DispositivoRegulacion
+components: {}
