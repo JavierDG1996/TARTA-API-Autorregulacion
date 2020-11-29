@@ -21,3 +21,6 @@ http.createServer(app).listen(serverPort, function () {
     console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
 });
 
+app.get("/", (req, res, next) => {
+    res.json('wlcome to the app');
+});
