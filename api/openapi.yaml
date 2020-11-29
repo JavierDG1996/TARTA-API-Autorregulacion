@@ -93,13 +93,13 @@ paths:
           description: Error de conexión con el dispositivo térmico
       x-swagger-router-controller: DispositivoRegulacion
   /turnOnDevice:
-    post:
+    put:
       tags:
       - DispositivoRegulacion
       summary: Encender un dispositivo térmico de una sala
       description: Envía una señal para encender el dispositivo de una sala debido
         a que hay al menos una persona en esa sala
-      operationId: turnOnDevicePOST
+      operationId: turnOnDevicePUT
       responses:
         "201":
           description: Señal enviada
@@ -109,20 +109,13 @@ paths:
           description: El dispositivo ya tiene este valor
       x-swagger-router-controller: DispositivoRegulacion
   /turnOffDevice:
-    post:
+    put:
       tags:
       - DispositivoRegulacion
       summary: Apagar un dispositivo térmico de una sala
       description: Envía una señal para apagar el dispositivo de una sala debido a
         que no hay ni una persona en esa sala
-      operationId: turnOffDevicePOST
-      requestBody:
-        description: Parámetros a enviar
-        content:
-          application/json:
-            schema:
-              type: boolean
-              example: false
+      operationId: turnOffDevicePUT
       responses:
         "201":
           description: Señal enviada

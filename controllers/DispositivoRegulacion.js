@@ -24,7 +24,7 @@ module.exports.getTempGET = function getTempGET (req, res, next) {
 };
 
 module.exports.modifyTempPUT = function modifyTempPUT (req, res, next) {
-  DispositivoRegulacion.modifyTempPUT()
+  DispositivoRegulacion.modifyTempPUT(req.body)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -33,8 +33,8 @@ module.exports.modifyTempPUT = function modifyTempPUT (req, res, next) {
     });
 };
 
-module.exports.turnOffDevicePOST = function turnOffDevicePOST (req, res, next, body) {
-  DispositivoRegulacion.turnOffDevicePOST(body)
+module.exports.turnOffDevicePUT = function turnOffDevicePUT (req, res, next) {
+  DispositivoRegulacion.turnOffDevicePUT(req.body)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -43,8 +43,8 @@ module.exports.turnOffDevicePOST = function turnOffDevicePOST (req, res, next, b
     });
 };
 
-module.exports.turnOnDevicePOST = function turnOnDevicePOST (req, res, next, body) {
-  DispositivoRegulacion.turnOnDevicePOST(body)
+module.exports.turnOnDevicePUT = function turnOnDevicePUT (req, res, next) {
+  DispositivoRegulacion.turnOnDevicePUT(req.body)
     .then(function (response) {
       utils.writeJson(res, response);
     })
