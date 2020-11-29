@@ -9,7 +9,9 @@
  **/
 exports.deviceStatusGET = function() {
   return new Promise(function(resolve, reject) {
-    resolve();
+    const result = {roomId:1234,status:false}
+
+    resolve(result);
   });
 }
 
@@ -22,7 +24,9 @@ exports.deviceStatusGET = function() {
  **/
 exports.getTempGET = function() {
   return new Promise(function(resolve, reject) {
-    resolve();
+    const result = {roomId:1234,temp:25}
+
+    resolve(result);
   });
 }
 
@@ -33,9 +37,9 @@ exports.getTempGET = function() {
  *
  * no response value expected for this operation
  **/
-exports.modifyTempPUT = function() {
+exports.modifyTempPUT = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    resolve(body);
   });
 }
 
@@ -44,12 +48,12 @@ exports.modifyTempPUT = function() {
  * Apagar un dispositivo térmico de una sala
  * Envía una señal para apagar el dispositivo de una sala debido a que no hay ni una persona en esa sala
  *
- * body Boolean Parámetros a enviar (optional)
  * no response value expected for this operation
  **/
-exports.turnOffDevicePOST = function(body) {
+exports.turnOffDevicePUT = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+
+    resolve(body);
   });
 }
 
@@ -58,12 +62,10 @@ exports.turnOffDevicePOST = function(body) {
  * Encender un dispositivo térmico de una sala
  * Envía una señal para encender el dispositivo de una sala debido a que hay al menos una persona en esa sala
  *
- * body Boolean Parámetros a enviar (optional)
  * no response value expected for this operation
  **/
-exports.turnOnDevicePOST = function(body) {
+exports.turnOnDevicePUT = function(body) {
   return new Promise(function(resolve, reject) {
-
     resolve(body);
   });
 }
@@ -77,8 +79,9 @@ exports.turnOnDevicePOST = function(body) {
  **/
 exports.usernumberGET = function() {
   return new Promise(function(resolve, reject) {
-    const room = { roomId: 123242, numberusers: 5 }
-    resolve(room);
+  const result = {roomId:1234,number:10}
+
+    resolve(result);
   });
 }
 

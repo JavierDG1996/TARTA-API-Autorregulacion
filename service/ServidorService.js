@@ -9,7 +9,8 @@
  **/
 exports.changeTempGET = function() {
   return new Promise(function(resolve, reject) {
-    const result = { roomId: 1234, change: 'yes'}
+    const result = {roomId:1234,change:"yes"}
+
     resolve(result);
   });
 }
@@ -23,7 +24,9 @@ exports.changeTempGET = function() {
  **/
 exports.getNewTempByGroupGET = function() {
   return new Promise(function(resolve, reject) {
-    resolve();
+    const result = {roomId:1234,temp:26}
+
+    resolve(result);
   });
 }
 
@@ -36,7 +39,9 @@ exports.getNewTempByGroupGET = function() {
  **/
 exports.getNewTempGET = function() {
   return new Promise(function(resolve, reject) {
-    resolve();
+    const result = {roomId:1234,temp:24}
+
+    resolve(result);
   });
 }
 
